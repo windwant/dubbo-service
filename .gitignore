@@ -2,3 +2,4 @@
 *.iml
 needer/target/classes/org/multitest/needer/App.class
 service/target/
+needer/target/

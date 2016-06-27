@@ -8,9 +8,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import java.io.IOException;
 
 /**
- * Unit test for simple App.
+ * Unit test for simple TestDubboService.
  */
-public class AppTest 
+public class TestDubboServiceTest
     extends TestCase
 {
     /**
@@ -18,7 +18,7 @@ public class AppTest
      *
      * @param testName name of the test case
      */
-    public AppTest( String testName )
+    public TestDubboServiceTest(String testName)
     {
         super( testName );
     }
@@ -28,13 +28,13 @@ public class AppTest
      */
     public static Test suite()
     {
-        return new TestSuite( AppTest.class );
+        return new TestSuite( TestDubboServiceTest.class );
     }
 
     /**
      * Rigourous Test :-)
      */
-    public void testApp() throws IOException {
+    public void testTestDubboService() throws IOException {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[] {"applicationContext.xml"});
         context.start();
 

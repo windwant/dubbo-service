@@ -6,12 +6,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import java.io.IOException;
 
 /**
- * Hello world!
- *
+ * Created by aayongche on 2016/6/27.
  */
-public class App 
-{
-    public static void main( String[] args ) throws IOException {
+public class TestDubboConsumer {
+    public void consume() throws IOException {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
         context.start();
         TestDubboService demoService = (TestDubboService)context.getBean("dubboSvr"); // 获取远程服务代理
