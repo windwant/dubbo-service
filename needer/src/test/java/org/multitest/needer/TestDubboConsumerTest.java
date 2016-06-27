@@ -39,6 +39,8 @@ public class TestDubboConsumerTest
             new TestDubboConsumer().consume();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 }

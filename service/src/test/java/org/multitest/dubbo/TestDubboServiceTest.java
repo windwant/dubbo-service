@@ -34,6 +34,7 @@ public class TestDubboServiceTest
     /**
      * Rigourous Test :-)
      */
+
     public void testTestDubboService() throws IOException {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[] {"applicationContext.xml"});
         context.start();
