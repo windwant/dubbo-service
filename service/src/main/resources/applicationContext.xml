@@ -16,5 +16,5 @@
 
        <dubbo:protocol name="dubbo" port="20880"/>
 
-       <dubbo:service interface="org.multitest.dubbo.TestDubboService" ref="dubboSvr"/>
+       <dubbo:service interface="org.multitest.dubbo.TestDubboService" ref="dubboSvr" version="1.0.0"/>
 </beans>

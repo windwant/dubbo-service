@@ -12,5 +12,5 @@
 
        <dubbo:registry address="zookeeper://192.168.7.162:2181"/>
 
-       <dubbo:reference id="dubboSvr" interface="org.multitest.dubbo.TestDubboService"/>
+       <dubbo:reference id="dubboSvr" interface="org.multitest.dubbo.TestDubboService" version="1.0.0"/>
 </beans>

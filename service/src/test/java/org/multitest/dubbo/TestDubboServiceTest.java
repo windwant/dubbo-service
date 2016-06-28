@@ -36,9 +36,15 @@ public class TestDubboServiceTest
      */
 
     public void testTestDubboService() throws IOException {
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[] {"applicationContext.xml"});
-        context.start();
-
-        System.in.read(); // 为保证服务一直开着，利用输入流的阻塞来模拟
+        TestServer svr = new TestServer();
+        svr.startAsync();
+        try{
+            Object lock = new Object();
+            synchronized (lock){
+                lock.wait();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
