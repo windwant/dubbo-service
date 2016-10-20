@@ -6,7 +6,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import java.io.IOException;
 
 /**
- * Created by aayongche on 2016/6/27.
+ * TestDubboConsumer
  */
 public class TestDubboConsumer {
     public void consume() throws IOException, InterruptedException {

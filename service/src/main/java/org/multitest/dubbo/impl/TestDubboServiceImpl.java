@@ -6,7 +6,7 @@ import org.multitest.dubbo.TestDubboService;
 import org.springframework.stereotype.Service;
 
 /**
- * Created by aayongche on 2016/6/25.
+ * TestDubboServiceImpl
  */
 @Service("dubboSvr")
 public class TestDubboServiceImpl implements TestDubboService {

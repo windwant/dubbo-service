@@ -4,7 +4,7 @@ import com.google.common.util.concurrent.AbstractIdleService;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 /**
- * Created by aayongche on 2016/6/28.
+ * TestServer
  */
 public class TestServer extends AbstractIdleService {
     private ClassPathXmlApplicationContext context;
@@ -21,5 +21,14 @@ public class TestServer extends AbstractIdleService {
     protected void shutDown() throws Exception {
         context.stop();
         System.out.println("service stop success");
+    }
+
+    public static void main(String[] args) {
+        try {
+            new TestServer().startUp();
+            System.in.read();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
