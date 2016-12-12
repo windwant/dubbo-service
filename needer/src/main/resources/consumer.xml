@@ -12,9 +12,7 @@
 
        <dubbo:registry address="zookeeper://localhost:2181"/>
 
-       <dubbo:protocol name="hessian" port="20880"/>
+       <dubbo:reference id="downloadSvr" protocol="hessian" async="true" interface="org.multitest.dubbo.service.UpgradeDubboService" version="1.0.0"/>
 
-       <dubbo:reference id="downloadSvr" interface="org.multitest.dubbo.service.DownloadDubboService" version="1.0.0"/>
-
-       <dubbo:reference id="helloSvr" interface="org.multitest.dubbo.service.HelloDubboService" version="1.0.0"/>
+       <dubbo:reference id="helloSvr" protocol="dubbo" interface="org.multitest.dubbo.service.HelloDubboService" version="1.0.0"/>
 </beans>

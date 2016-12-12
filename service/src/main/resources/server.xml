@@ -14,9 +14,12 @@
 
        <dubbo:registry address="zookeeper://localhost:2181"/>
 
-       <dubbo:protocol name="hessian" port="20880" serialization="kyro"/>
+       <dubbo:protocol name="hessian" id="hp" port="20881" keepalive="false" serialization="kyro"/>
+       <dubbo:protocol name="dubbo" id="dp" port="20880"/>
 
-       <dubbo:service interface="org.multitest.dubbo.service.HelloDubboService" ref="helloSvr" version="1.0.0"/>
+       <dubbo:provider protocol="dubbo"/>
 
-       <dubbo:service interface="org.multitest.dubbo.service.DownloadDubboService" ref="downSvr" version="1.0.0"/>
+       <dubbo:service protocol="dp" interface="org.multitest.dubbo.service.HelloDubboService" ref="helloSvr" version="1.0.0"/>
+
+       <dubbo:service protocol="hp" interface="org.multitest.dubbo.service.UpgradeDubboService" ref="downSvr" version="1.0.0"/>
 </beans>

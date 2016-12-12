@@ -1,6 +1,6 @@
 package org.multitest.needer;
 
-import org.multitest.dubbo.service.DownloadDubboService;
+import org.multitest.dubbo.service.UpgradeDubboService;
 import org.multitest.dubbo.service.HelloDubboService;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -13,18 +13,18 @@ import java.io.InputStream;
  */
 public class TestDubboConsumer {
     private static HelloDubboService helloSvr = null;
-    private static DownloadDubboService downSvr = null;
+    private static UpgradeDubboService upgradeSvr = null;
     static {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:consumer.xml");
         context.start();
         helloSvr = (HelloDubboService)context.getBean("helloSvr"); // 获取远程服务代理
-        downSvr = (DownloadDubboService)context.getBean("downloadSvr"); // 获取远程服务代理
+        upgradeSvr = (UpgradeDubboService)context.getBean("downloadSvr"); // 获取远程服务代理
     }
 
 
     public static void consume(){
         for (int i = 0; i < 10; i++) {
-            String hello = helloSvr.hello("world-" + i); // 执行远程方法
+            String hello = upgradeSvr.hello("world-" + i); // 执行远程方法
             System.out.println(hello);
             try {
                 Thread.sleep(1000);
@@ -39,26 +39,31 @@ public class TestDubboConsumer {
         InputStream fi = null;
         try {
             fo = new FileOutputStream(desPath);
-            fi = downSvr.download(srcPath);
+            fi = upgradeSvr.download(srcPath);
             byte[] b = new byte[1024];
-            while (fi.read(b) != -1) {
+            while (fi.read(b) > -1) {
                 fo.write(b);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }finally {
             try {
-                fi.close();
-                fo.flush();
-                fo.close();
+                if(fi != null) {
+                    fi.close();
+                }
+                if(fo != null) {
+                    fo.flush();
+                    fo.close();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        System.out.println("upgrade over");
     }
 
     public static void main(String[] args) {
-        TestDubboConsumer.download("F:\\phpmemcache.php", "F:\\aaaaaaaaaaa.php");
+        TestDubboConsumer.download("F:\\intel.zip", "F:\\afdfasdfa.rar");
 //        TestDubboConsumer.consume();
     }
 }
