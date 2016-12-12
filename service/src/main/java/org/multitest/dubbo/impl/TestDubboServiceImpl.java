@@ -5,6 +5,11 @@ import org.apache.logging.log4j.Logger;
 import org.multitest.dubbo.TestDubboService;
 import org.springframework.stereotype.Service;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+
 /**
  * TestDubboServiceImpl
  */
@@ -15,5 +20,18 @@ public class TestDubboServiceImpl implements TestDubboService {
     public String hello(String name) {
         logger.info(name + " come to say hello");
         return name + " say hello!";
+    }
+
+    @Override
+    public InputStream download(String path) {
+        InputStream inputStream = null;
+        try {
+            inputStream = new FileInputStream(path);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return inputStream;
     }
 }

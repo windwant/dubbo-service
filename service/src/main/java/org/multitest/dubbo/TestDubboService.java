@@ -1,10 +1,14 @@
 package org.multitest.dubbo;
 
+import java.io.InputStream;
+
 /**
  * TestDubboService
  */
 
 public interface TestDubboService {
 
-    public String hello(String name);
+    String hello(String name);
+
+    InputStream download(String path);
 }

@@ -10,7 +10,11 @@
 
        <dubbo:application name="dubboNeeder"/>
 
-       <dubbo:registry address="zookeeper://192.168.7.162:2181"/>
+       <dubbo:registry address="zookeeper://localhost:2181"/>
+
+       <dubbo:protocol name="dubbo"/>
+
+       <dubbo:consumer timeout="100000"/>
 
        <dubbo:reference id="dubboSvr" interface="org.multitest.dubbo.TestDubboService" version="1.0.0"/>
 </beans>

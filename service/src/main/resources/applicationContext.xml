@@ -12,9 +12,9 @@
 
        <dubbo:application name="dubboapi"/>
 
-       <dubbo:registry address="zookeeper://192.168.7.162:2181"/>
+       <dubbo:registry address="zookeeper://localhost:2181"/>
 
-       <dubbo:protocol name="dubbo" port="20880"/>
+       <dubbo:protocol name="hessian" port="20880" serialization="kyro"/>
 
        <dubbo:service interface="org.multitest.dubbo.TestDubboService" ref="dubboSvr" version="1.0.0"/>
 </beans>
