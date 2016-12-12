@@ -15,7 +15,7 @@ public class TestServer extends AbstractIdleService {
 
     @Override
     protected void startUp() throws Exception {
-        context = new ClassPathXmlApplicationContext(new String[] {"applicationContext.xml"});
+        context = new ClassPathXmlApplicationContext(new String[] {"server.xml"});
         context.start();
         context.registerShutdownHook();
         logger.info("service start success");

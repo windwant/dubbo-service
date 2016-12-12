@@ -16,5 +16,7 @@
 
        <dubbo:protocol name="hessian" port="20880" serialization="kyro"/>
 
-       <dubbo:service interface="org.multitest.dubbo.TestDubboService" ref="dubboSvr" version="1.0.0"/>
+       <dubbo:service interface="org.multitest.dubbo.service.HelloDubboService" ref="helloSvr" version="1.0.0"/>
+
+       <dubbo:service interface="org.multitest.dubbo.service.DownloadDubboService" ref="downSvr" version="1.0.0"/>
 </beans>

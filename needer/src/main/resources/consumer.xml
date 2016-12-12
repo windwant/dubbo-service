@@ -12,9 +12,9 @@
 
        <dubbo:registry address="zookeeper://localhost:2181"/>
 
-       <dubbo:protocol name="dubbo"/>
+       <dubbo:protocol name="hessian"/>
 
-       <dubbo:consumer timeout="100000"/>
+       <dubbo:reference id="downloadSvr" interface="org.multitest.dubbo.service.DownloadDubboService" version="1.0.0"/>
 
-       <dubbo:reference id="dubboSvr" interface="org.multitest.dubbo.TestDubboService" version="1.0.0"/>
+       <dubbo:reference id="helloSvr" interface="org.multitest.dubbo.service.HelloDubboService" version="1.0.0"/>
 </beans>

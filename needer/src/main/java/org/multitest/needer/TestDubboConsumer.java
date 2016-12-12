@@ -1,9 +1,9 @@
 package org.multitest.needer;
 
-import org.multitest.dubbo.TestDubboService;
+import org.multitest.dubbo.service.DownloadDubboService;
+import org.multitest.dubbo.service.HelloDubboService;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,38 +12,39 @@ import java.io.InputStream;
  * TestDubboConsumer
  */
 public class TestDubboConsumer {
-    TestDubboService demoService = null;
-    public void init(){
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext.xml");
+    private static HelloDubboService helloSvr = null;
+    private static DownloadDubboService downSvr = null;
+    static {
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:consumer.xml");
         context.start();
-        demoService = (TestDubboService)context.getBean("dubboSvr"); // 获取远程服务代理
+        helloSvr = (HelloDubboService)context.getBean("helloSvr"); // 获取远程服务代理
+        downSvr = (DownloadDubboService)context.getBean("downloadSvr"); // 获取远程服务代理
     }
 
 
-    public void consume() throws IOException, InterruptedException {
-        init();
+    public static void consume(){
         for (int i = 0; i < 10; i++) {
-            String hello = demoService.hello("world-" + i); // 执行远程方法
+            String hello = helloSvr.hello("world-" + i); // 执行远程方法
             System.out.println(hello);
-            Thread.sleep(1000);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-        System.in.read();
     }
 
-    public void download(String srcPath, String desPath){
-        init();
+    public static void download(String srcPath, String desPath){
         FileOutputStream fo = null;
         InputStream fi = null;
         try {
             fo = new FileOutputStream(desPath);
-            fi = demoService.download(srcPath);
+            fi = downSvr.download(srcPath);
             byte[] b = new byte[1024];
             while (fi.read(b) != -1) {
                 fo.write(b);
             }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }finally {
             try {
@@ -57,6 +58,7 @@ public class TestDubboConsumer {
     }
 
     public static void main(String[] args) {
-        new TestDubboConsumer().download("F:\\unionpay.rar", "F:\\uuuu.rar");
+        TestDubboConsumer.download("F:\\phpmemcache.php", "F:\\aaaaaaaaaaa.php");
+//        TestDubboConsumer.consume();
     }
 }

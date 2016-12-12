@@ -18,7 +18,7 @@ public class DubboServer implements Container {
 
     @Override
     public void start(){
-        context = new ClassPathXmlApplicationContext(new String[] {"applicationContext.xml"});
+        context = new ClassPathXmlApplicationContext(new String[] {"server.xml"});
         context.start();
         context.registerShutdownHook();
         logger.info("service start success");
@@ -64,6 +64,7 @@ public class DubboServer implements Container {
             System.out.println(new SimpleDateFormat("[yyyy-MM-dd HH:mm:ss]").format(new Date()) + " Dubbo service server started!");
         } catch (RuntimeException e) {
             logger.error(e.getMessage(), e);
+            System.out.println(e);
             System.exit(1);
         }
         synchronized (DubboServer.class) {

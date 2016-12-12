@@ -30,17 +30,4 @@ public class TestDubboConsumerTest
         return new TestSuite( TestDubboConsumerTest.class );
     }
 
-    /**
-     * Rigourous Test :-)
-     */
-    public void testTestDubboConsumer()
-    {
-        try {
-            new TestDubboConsumer().consume();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
 }

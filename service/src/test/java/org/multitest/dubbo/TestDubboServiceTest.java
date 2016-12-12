@@ -8,7 +8,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import java.io.IOException;
 
 /**
- * Unit test for simple TestDubboService.
+ * Unit test for simple HelloDubboService.
  */
 public class TestDubboServiceTest
     extends TestCase
