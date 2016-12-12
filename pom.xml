@@ -35,13 +35,6 @@
       <version>4.3.0.RELEASE</version>
     </dependency>
 
-    <!-- https://mvnrepository.com/artifact/com.alibaba/dubbo -->
-    <dependency>
-      <groupId>com.alibaba</groupId>
-      <artifactId>dubbo</artifactId>
-      <version>2.5.3</version>
-    </dependency>
-
     <dependency>
       <groupId>org.apache.zookeeper</groupId>
       <artifactId>zookeeper</artifactId>
@@ -136,18 +129,6 @@
   </build>
 
   <repositories>
-
-    <repository>
-      <id>nexus-release</id>
-      <name>nexus release</name>
-      <url>http://119.254.118.103:8081/nexus/content/repositories/releases</url>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
 
     <repository>
       <id>nexus-ali</id>
