@@ -1,13 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="WARN">
+<Configuration>
+    <Properties>
+        <Property name="log-path">D:</Property>
+        <Property name="log-level">info</Property>
+    </Properties>
+
     <Appenders>
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
+        <RollingFile name="RollingFile" fileName="${log-path}/logs/server.log"
+                     filePattern="${log-path}/${date:yyyy-MM}/server-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout charset="UTF-8"
+                           pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} %level [%thread][%file:%line] - %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="250 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
     </Appenders>
     <Loggers>
-        <Root level="trace">
-            <AppenderRef ref="Console"/>
+        <logger name="com.alibaba.dubbo" additivity="true"/>
+        <Root level="info">
+            <appender-ref ref="Console"/>
+            <appender-ref ref="RollingFile"/>
         </Root>
     </Loggers>
 </Configuration>

@@ -10,16 +10,16 @@
 
        <context:component-scan base-package="org.multitest.dubbo"/>
 
-       <dubbo:application name="dubboapi"/>
+       <dubbo:application name="dubboapi" logger="slf4j"/>
 
-       <dubbo:registry address="zookeeper://localhost:2181"/>
+       <dubbo:registry id="localregister" address="zookeeper://localhost:2181"/>
 
        <dubbo:protocol name="hessian" id="hp" port="20881" keepalive="false" serialization="kyro"/>
        <dubbo:protocol name="dubbo" id="dp" port="20880"/>
 
-       <dubbo:provider protocol="dubbo"/>
+       <dubbo:provider protocol="dubbo" threadpool="fixed" threads="10" filter="myLogFilter"/>
 
-       <dubbo:service protocol="dp" interface="org.multitest.dubbo.service.HelloDubboService" ref="helloSvr" version="1.0.0"/>
+       <dubbo:service protocol="dp" registry="localregister" interface="org.multitest.dubbo.service.HelloDubboService" ref="helloSvr" version="1.0.0"/>
 
-       <dubbo:service protocol="hp" interface="org.multitest.dubbo.service.UpgradeDubboService" ref="downSvr" version="1.0.0"/>
+       <dubbo:service protocol="hp" registry="localregister" interface="org.multitest.dubbo.service.UpgradeDubboService" ref="downSvr" version="1.0.0"/>
 </beans>

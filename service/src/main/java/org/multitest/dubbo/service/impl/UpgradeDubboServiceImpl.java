@@ -1,8 +1,8 @@
 package org.multitest.dubbo.service.impl;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.multitest.dubbo.service.UpgradeDubboService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.FileInputStream;
@@ -13,7 +13,7 @@ import java.io.InputStream;
  */
 @Service("downSvr")
 public class UpgradeDubboServiceImpl implements UpgradeDubboService {
-    private static final Logger logger = LogManager.getLogger(UpgradeDubboServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(UpgradeDubboServiceImpl.class);
 
     @Override
     public String hello(String name) {
