@@ -2,7 +2,7 @@
 <Configuration>
     <Properties>
         <Property name="log-path">D:</Property>
-        <Property name="log-level">info</Property>
+        <Property name="log-level">debug</Property>
     </Properties>
 
     <Appenders>
@@ -21,10 +21,10 @@
         </RollingFile>
     </Appenders>
     <Loggers>
-        <logger name="com.alibaba.dubbo" additivity="true"/>
-        <Root level="info">
+        <Root level="${log-level}">
             <appender-ref ref="Console"/>
             <appender-ref ref="RollingFile"/>
         </Root>
+        <logger name="com.alibaba.dubbo" additivity="false" level="${log-level}"/>
     </Loggers>
 </Configuration>
