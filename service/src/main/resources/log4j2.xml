@@ -22,8 +22,8 @@
     </Appenders>
     <Loggers>
         <Root level="${log-level}">
-            <appender-ref ref="Console"/>
-            <appender-ref ref="RollingFile"/>
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFile"/>
         </Root>
         <logger name="com.alibaba.dubbo" additivity="false" level="${log-level}"/>
     </Loggers>
