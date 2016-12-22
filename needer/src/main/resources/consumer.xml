@@ -14,5 +14,5 @@
 
        <dubbo:reference id="downloadSvr" protocol="hessian" async="true" interface="org.multitest.dubbo.service.UpgradeDubboService" version="1.0.0"/>
 
-       <dubbo:reference id="helloSvr" protocol="dubbo" interface="org.multitest.dubbo.service.HelloDubboService" version="1.0.0"/>
+       <dubbo:reference id="helloSvr" timeout="10000" protocol="dubbo" async="true" interface="org.multitest.dubbo.service.HelloDubboService" version="1.0.0"/>
 </beans>

@@ -1,5 +1,8 @@
 package org.multitest.needer;
 
+import com.alibaba.dubbo.remoting.exchange.ResponseFuture;
+import com.alibaba.dubbo.rpc.RpcContext;
+import com.alibaba.dubbo.rpc.protocol.dubbo.FutureAdapter;
 import org.multitest.dubbo.service.UpgradeDubboService;
 import org.multitest.dubbo.service.HelloDubboService;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -7,6 +10,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 /**
  * TestDubboConsumer
@@ -22,16 +29,11 @@ public class TestDubboConsumer {
     }
 
 
-    public static void consume(){
-        for (int i = 0; i < 10; i++) {
-            String hello = upgradeSvr.hello("world-" + i); // 执行远程方法
-            System.out.println(hello);
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+    public static void consume() throws ExecutionException, InterruptedException {
+        String hello = helloSvr.hello("world-message"); // 执行远程方法
+        System.out.println(hello);
+        Future future =  RpcContext.getContext().getFuture();
+        System.out.println(future != null?future.get():"Null"); //异步执行获取结果
     }
 
     public static void download(String srcPath, String desPath){
@@ -62,8 +64,8 @@ public class TestDubboConsumer {
         System.out.println("upgrade over");
     }
 
-    public static void main(String[] args) {
-        TestDubboConsumer.download("F:\\intel.zip", "F:\\afdfasdfa.rar");
-//        TestDubboConsumer.consume();
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
+//        TestDubboConsumer.download("F:\\intel.zip", "F:\\afdfasdfa.rar");
+        TestDubboConsumer.consume();
     }
 }
