@@ -30,10 +30,20 @@ public class TestDubboConsumer {
 
 
     public static void consume() throws ExecutionException, InterruptedException {
-        String hello = helloSvr.hello("world-message"); // 执行远程方法
-        System.out.println(hello);
-        Future future =  RpcContext.getContext().getFuture();
-        System.out.println(future != null?future.get():"Null"); //异步执行获取结果
+        List<Future> futureList = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            String hello = helloSvr.hello("world-message"); // 执行远程方法
+            System.out.println(hello);
+            Future future =  RpcContext.getContext().getFuture();
+            futureList.add(future);
+        }
+        futureList.forEach(future -> {
+            try {
+                System.out.println(future != null ? future.get() : "Null"); //异步执行获取结果
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        });
     }
 
     public static void download(String srcPath, String desPath){
