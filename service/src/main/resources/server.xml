@@ -9,16 +9,21 @@
        http://code.alibabatech.com/schema/dubbo/dubbo.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
        <context:component-scan base-package="org.multitest.dubbo"/>
-
+       
+       <!--应用配置	用于配置当前应用信息，不管该应用是提供者还是消费者-->
        <dubbo:application name="dubboapi" logger="slf4j"/>
 
+       <!--注册中心配置	用于配置连接注册中心相关信息 -->
        <dubbo:registry id="localregister" address="zookeeper://localhost:2181"/>
 
+       <!--协议配置	用于配置提供服务的协议信息，协议由提供方指定，消费方被动接受-->
        <dubbo:protocol name="hessian" id="hp" port="20881" keepalive="false" serialization="kyro"/>
        <dubbo:protocol name="dubbo" id="dp" port="20880"/>
 
+       <!--提供方配置	当 ProtocolConfig 和 ServiceConfig 某属性没有配置时，采用此缺省值，可选-->
        <dubbo:provider protocol="dubbo" threadpool="fixed" threads="10" filter="myLogFilter"/>
 
+       <!--服务配置	用于暴露一个服务，定义服务的元信息，一个服务可以用多个协议暴露，一个服务也可以注册到多个注册中心-->
        <dubbo:service protocol="dp" registry="localregister" interface="org.multitest.dubbo.service.HelloDubboService" ref="helloSvr" version="1.0.0"/>
 
        <dubbo:service protocol="hp" registry="localregister" interface="org.multitest.dubbo.service.UpgradeDubboService" ref="downSvr" version="1.0.0"/>
