@@ -3,6 +3,7 @@ package org.dubbo.consumer;
 import com.alibaba.dubbo.rpc.RpcContext;
 import com.alibaba.dubbo.rpc.service.EchoService;
 import org.dubbo.common.HelloDubboService;
+import org.dubbo.common.StubDubboService;
 import org.dubbo.common.TestNotifyService;
 import org.dubbo.common.UpgradeDubboService;
 import org.dubbo.common.callback.CallbackListener;
@@ -119,12 +120,21 @@ public class TestDubboConsumer {
         testNotifyService.hello("notify..");
     }
 
+    /**
+     * 本地存根 stub
+     */
+    public static void consumeWithStub(){
+        StubDubboService stubDubboService = (StubDubboService) context.getBean("stubDubboService");
+        System.out.println(stubDubboService.hello("notify.."));
+    }
+
 
     public static void main(String[] args) throws ExecutionException, InterruptedException, IOException {
 //        TestDubboConsumer.download("F:\\intel.zip", "F:\\afdfasdfa.rar");
 //        TestDubboConsumer.consume();
 //        echo();
 //        consumeWithCallBack();
-        consumeWithNotify();
+//        consumeWithNotify();
+        consumeWithStub();
     }
 }

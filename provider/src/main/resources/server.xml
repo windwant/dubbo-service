@@ -55,4 +55,6 @@
 
        <!--事件通知-->
        <dubbo:service interface="org.dubbo.common.TestNotifyService" ref="testNotifyService"/>
+
+       <dubbo:service interface="org.dubbo.common.StubDubboService" ref="stubDubboService"/>
 </beans>

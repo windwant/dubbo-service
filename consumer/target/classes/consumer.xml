@@ -17,7 +17,7 @@
        <dubbo:registry id="local" address="zookeeper://localhost:2181"/>
        <dubbo:registry id="remote" address="zookeeper://localhost:2181"/>
 
-       <bean id="dnotify" class="org.dubbo.consumer.DownloadNotifyImpl"/>
+       <bean id="dnotify" class="org.dubbo.consumer.notify.DownloadNotifyImpl"/>
 
        <!--引用配置	用于创建一个远程服务代理，一个引用可以指向多个注册中心
        async: 异步访问
@@ -27,18 +27,20 @@
        cache 缓存
        -->
        <!--dev group-->
-       <dubbo:reference id="downloadSvrDev" group="dev" registry="local" cache="lru" protocol="hessian" async="true" interface="org.dubbo.common.UpgradeDubboService" version="1.0.0">
-              <dubbo:method name="hello" async="true" onreturn = "dnotify.onreturn" onthrow="dnotify.onthrow" />
-       </dubbo:reference>
+       <dubbo:reference id="downloadSvrDev" group="dev" registry="local" cache="lru" protocol="hessian" async="true" interface="org.dubbo.common.UpgradeDubboService" version="1.0.0"/>
        <dubbo:reference id="helloSvrDev" group="dev" registry="remote" timeout="10000" protocol="dubbo" async="true" interface="org.dubbo.common.HelloDubboService" version="1.0.0"/>
-
-       <dubbo:reference id="callbackService" interface="org.dubbo.common.callback.CallbackService"/>
 
        <!--prod group-->
        <dubbo:reference id="downloadSvrProd" group="prod" registry="local" protocol="hessian" async="true" interface="org.dubbo.common.UpgradeDubboService" version="1.0.0"/>
        <dubbo:reference id="helloSvrProd" group="prod" registry="remote" timeout="10000" protocol="dubbo" async="true" interface="org.dubbo.common.HelloDubboService" version="1.0.0"/>
 
+       <!--回调函数-->
+       <dubbo:reference id="callbackService" interface="org.dubbo.common.callback.CallbackService"/>
+
+       <!--事件通知-->
        <dubbo:reference id="testNotifyService" interface="org.dubbo.common.TestNotifyService">
               <dubbo:method name="hello" async="true" onreturn = "dnotify.onreturn" onthrow="dnotify.onthrow" />
        </dubbo:reference>
+
+       <dubbo:reference interface="org.dubbo.common.StubDubboService" id="stubDubboService"/>
 </beans>
