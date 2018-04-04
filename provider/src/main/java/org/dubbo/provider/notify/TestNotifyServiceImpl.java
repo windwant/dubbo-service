@@ -1,4 +1,4 @@
-package org.dubbo.provider.service.impl;
+package org.dubbo.provider.notify;
 
 import org.dubbo.common.TestNotifyService;
 import org.springframework.stereotype.Service;
