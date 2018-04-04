@@ -1,8 +1,15 @@
-# dubbotest
-dubbotest
+# dubbo-service-demo
+
 dubbo spring zookeeper
 
 dubbo 多协议 hessian下载文件 dubbo 其它
+
+common: api
+
+provider: service provider
+
+comsumer: service consumer
+
 
 dubbo:
 
