@@ -51,4 +51,6 @@
                      <!--<dubbo:argument type="com.demo.CallbackListener" callback="true" />-->
               </dubbo:method>
        </dubbo:service>
+
+       <dubbo:service interface="org.dubbo.common.TestNotifyService" ref="testNotifyService"/>
 </beans>

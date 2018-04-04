@@ -3,6 +3,7 @@ package org.dubbo.consumer;
 import com.alibaba.dubbo.rpc.RpcContext;
 import com.alibaba.dubbo.rpc.service.EchoService;
 import org.dubbo.common.HelloDubboService;
+import org.dubbo.common.TestNotifyService;
 import org.dubbo.common.UpgradeDubboService;
 import org.dubbo.common.callback.CallbackListener;
 import org.dubbo.common.callback.CallbackService;
@@ -20,18 +21,16 @@ import java.util.concurrent.Future;
  * TestDubboConsumer
  */
 public class TestDubboConsumer {
-    private static HelloDubboService helloSvrDev = null;
-    private static UpgradeDubboService downloadSvrDev = null;
     private static ClassPathXmlApplicationContext context;
     static {
         context = new ClassPathXmlApplicationContext("classpath:consumer.xml");
         context.start();
-        helloSvrDev = (HelloDubboService)context.getBean("helloSvrDev"); // 获取远程服务代理
-        downloadSvrDev = (UpgradeDubboService)context.getBean("downloadSvrDev"); // 获取远程服务代理
+        context.registerShutdownHook();
     }
 
 
     public static void consume() throws ExecutionException, InterruptedException {
+        HelloDubboService helloSvrDev = (HelloDubboService)context.getBean("helloSvrDev"); // 获取远程服务代理
         List<Future> futureList = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             RpcContext.getContext().setAttachment("index", String.valueOf(i));//隐式参数
@@ -49,7 +48,13 @@ public class TestDubboConsumer {
         });
     }
 
+    /**
+     * 文件下载
+     * @param srcPath
+     * @param desPath
+     */
     public static void download(String srcPath, String desPath){
+        UpgradeDubboService downloadSvrDev = (UpgradeDubboService)context.getBean("downloadSvrDev"); // 获取远程服务代理
         FileOutputStream fo = null;
         InputStream fi = null;
         try {
@@ -83,12 +88,19 @@ public class TestDubboConsumer {
      * @throws InterruptedException
      */
     public static void echo() throws ExecutionException, InterruptedException {
+        HelloDubboService helloSvrDev = (HelloDubboService)context.getBean("helloSvrDev"); // 获取远程服务代理
         EchoService echo = (EchoService) helloSvrDev;
         echo.$echo("OK");
         Future future =  RpcContext.getContext().getFuture();
         System.out.println(future.get());
     }
-    //on returen
+
+    /**
+     * dubbo callback
+     * @throws ExecutionException
+     * @throws InterruptedException
+     * @throws IOException
+     */
     public static void consumeWithCallBack() throws ExecutionException, InterruptedException, IOException {
         CallbackService callbackService = (CallbackService) context.getBean("callbackService");
         callbackService.addListener("foo.bar", new CallbackListener() {
@@ -99,11 +111,20 @@ public class TestDubboConsumer {
         System.in.read();
     }
 
+    /**
+     * 事件通知
+     */
+    public static void consumeWithNotify(){
+        TestNotifyService testNotifyService = (TestNotifyService) context.getBean("testNotifyService");
+        testNotifyService.hello("notify..");
+    }
+
 
     public static void main(String[] args) throws ExecutionException, InterruptedException, IOException {
 //        TestDubboConsumer.download("F:\\intel.zip", "F:\\afdfasdfa.rar");
 //        TestDubboConsumer.consume();
 //        echo();
-        consumeWithCallBack();
+//        consumeWithCallBack();
+        consumeWithNotify();
     }
 }

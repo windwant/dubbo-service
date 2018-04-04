@@ -42,6 +42,7 @@
        <dubbo:service protocol="dp" group="prod" registry="remoteregister" interface="org.dubbo.common.HelloDubboService" ref="helloSvr" version="1.0.0"/>
        <dubbo:service protocol="hp" group="prod" registry="remoteregister" interface="org.dubbo.common.UpgradeDubboService" ref="downSvr" version="1.0.0"/>
 
+       <!--回调函数-->
        <bean id ="callbackService" class = "org.dubbo.provider.callback.CallbackServiceImpl" />
 
        <dubbo:service interface="org.dubbo.common.callback.CallbackService" ref="callbackService"
@@ -51,4 +52,7 @@
                      <!--<dubbo:argument type="com.demo.CallbackListener" callback="true" />-->
               </dubbo:method>
        </dubbo:service>
+
+       <!--事件通知-->
+       <dubbo:service interface="org.dubbo.common.TestNotifyService" ref="testNotifyService"/>
 </beans>
