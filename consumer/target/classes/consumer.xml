@@ -42,5 +42,5 @@
               <dubbo:method name="hello" async="true" onreturn = "dnotify.onreturn" onthrow="dnotify.onthrow" />
        </dubbo:reference>
 
-       <dubbo:reference interface="org.dubbo.common.StubDubboService" id="stubDubboService"/>
+       <dubbo:reference interface="org.dubbo.common.StubDubboService" id="stubDubboService" stub="org.dubbo.consumer.stub.StubDubboServiceStub"/>
 </beans>

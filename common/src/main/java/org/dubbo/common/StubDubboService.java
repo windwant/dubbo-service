@@ -7,4 +7,6 @@ package org.dubbo.common;
 public interface StubDubboService {
 
     String hello(String name);
+
+    String testMock(String name);
 }

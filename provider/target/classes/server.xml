@@ -56,5 +56,5 @@
        <!--事件通知-->
        <dubbo:service interface="org.dubbo.common.TestNotifyService" ref="testNotifyService"/>
 
-       <dubbo:service interface="org.dubbo.common.StubDubboService" ref="stubDubboService" stub="org.dubbo.consumer.stub.StubDubboServiceStub"/>
+       <dubbo:service interface="org.dubbo.common.StubDubboService" ref="stubDubboService" timeout="5" mock="org.dubbo.common.mock.StubDubboServiceMock"/>
 </beans>

@@ -12,4 +12,14 @@ public class SubDubboServiceImpl implements StubDubboService {
     public String hello(String name) {
         return "stub " + name;
     }
+
+    @Override
+    public String testMock(String name) {
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
 }

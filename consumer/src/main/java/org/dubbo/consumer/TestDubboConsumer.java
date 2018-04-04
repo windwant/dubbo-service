@@ -125,7 +125,15 @@ public class TestDubboConsumer {
      */
     public static void consumeWithStub(){
         StubDubboService stubDubboService = (StubDubboService) context.getBean("stubDubboService");
-        System.out.println(stubDubboService.hello("notify.."));
+        System.out.println(stubDubboService.hello("stub.."));
+    }
+
+    /**
+     * mock
+     */
+    public static void consumeWithMock(){
+        StubDubboService stubDubboService = (StubDubboService) context.getBean("stubDubboService");
+        System.out.println(stubDubboService.testMock("mock.."));
     }
 
 
@@ -135,6 +143,7 @@ public class TestDubboConsumer {
 //        echo();
 //        consumeWithCallBack();
 //        consumeWithNotify();
-        consumeWithStub();
+//        consumeWithStub();
+        consumeWithMock();
     }
 }

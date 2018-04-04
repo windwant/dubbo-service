@@ -17,4 +17,9 @@ public class StubDubboServiceStub implements StubDubboService {
         System.out.println("sub opt helloDubboService hello: " + name);
         return stubDubboService.hello(name);
     }
+
+    @Override
+    public String testMock(String name) {
+        return null;
+    }
 }
