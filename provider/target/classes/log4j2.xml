@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Properties>
+        <Property name="log-path">D:</Property>
+        <Property name="log-level">debug</Property>
+    </Properties>
+
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+        <RollingFile name="RollingFile" fileName="${log-path}/logs/server.log"
+                     filePattern="${log-path}/${date:yyyy-MM}/server-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout charset="UTF-8"
+                           pattern="%date{yyyy-MM-dd HH:mm:ss.SSS} %level [%thread][%file:%line] - %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="250 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="20"/>
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Root level="${log-level}">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="RollingFile"/>
+        </Root>
+        <logger name="com.alibaba.dubbo" additivity="false" level="${log-level}"/>
+        <logger name="com.alibaba.dubbo.common.logger.LoggerFactory" additivity="false" level="${log-level}"/>
+    </Loggers>
+</Configuration>

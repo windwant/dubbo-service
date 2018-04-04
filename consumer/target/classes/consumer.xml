@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://code.alibabatech.com/schema/dubbo
+       http://code.alibabatech.com/schema/dubbo/dubbo.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+       <dubbo:application name="dubboNeeder"/>
+
+       <!--消费方配置	当 ReferenceConfig 某属性没有配置时，采用此缺省值，可选 check: 启动时检查  -->
+       <dubbo:consumer check="false" />
+
+       <!--多中心-->
+       <dubbo:registry id="local" address="zookeeper://localhost:2181"/>
+       <dubbo:registry id="remote" address="zookeeper://localhost:2181"/>
+
+       <!--引用配置	用于创建一个远程服务代理，一个引用可以指向多个注册中心
+       async: 异步访问
+       url: 直连 绕过配置中心 url="dubbo://localhost:20890"
+       dev prod 群组
+       1.0.0 1.1.0两个版本服务
+       cache 缓存
+       -->
+       <!--dev group-->
+       <dubbo:reference id="downloadSvrDev" group="dev" registry="local" cache="lru" protocol="hessian" async="true" interface="org.dubbo.common.UpgradeDubboService" version="1.0.0">
+              <dubbo:method name="hello" async="true" onreturn = "notify.onreturn" onthrow="notify.onthrow" />
+       </dubbo:reference>
+       <dubbo:reference id="helloSvrDev" group="dev" registry="remote" timeout="10000" protocol="dubbo" async="true" interface="org.dubbo.common.HelloDubboService" version="1.0.0"/>
+
+       <bean id="notify" class="org.dubbo.consumer.DownloadNotify"/>
+
+       <dubbo:reference id="callbackService" interface="org.dubbo.common.callback.CallbackService"/>
+
+       <!--prod group-->
+       <dubbo:reference id="downloadSvrProd" group="prod" registry="local" protocol="hessian" async="true" interface="org.dubbo.common.UpgradeDubboService" version="1.0.0"/>
+       <dubbo:reference id="helloSvrProd" group="prod" registry="remote" timeout="10000" protocol="dubbo" async="true" interface="org.dubbo.common.HelloDubboService" version="1.0.0"/>
+</beans>
