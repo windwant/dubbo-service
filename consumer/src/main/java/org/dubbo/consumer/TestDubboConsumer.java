@@ -155,8 +155,8 @@ public class TestDubboConsumer {
 //        echo();
 //        consumeWithCallBack();
 //        consumeWithNotify();
-//        consumeWithStub();
+        consumeWithStub();
 //        consumeWithMock();
-        consumeWithMerge();
+//        consumeWithMerge();
     }
 }
