@@ -14,8 +14,8 @@
        <dubbo:consumer check="false" />
 
        <!--多中心-->
-       <dubbo:registry id="local" address="zookeeper://localhost:2181"/>
-       <dubbo:registry id="remote" address="zookeeper://localhost:2181"/>
+       <dubbo:registry id="local" address="multicast://224.0.0.0:1234"/>
+       <dubbo:registry id="remote" address="multicast://224.0.0.0:1234"/>
 
        <bean id="dnotify" class="org.dubbo.consumer.notify.DownloadNotifyImpl"/>
 
@@ -43,4 +43,11 @@
        </dubbo:reference>
 
        <dubbo:reference interface="org.dubbo.common.StubDubboService" id="stubDubboService" stub="org.dubbo.consumer.stub.StubDubboServiceStub"/>
+
+       <dubbo:reference id="mergeService" group="*" interface="org.dubbo.common.merge.MergeService">
+              <!--原生merger-->
+              <dubbo:method name="helloList" merger="map"/>
+              <!--自定义merger-->
+              <dubbo:method name="helloString" merger="mymerger"/>
+       </dubbo:reference>
 </beans>

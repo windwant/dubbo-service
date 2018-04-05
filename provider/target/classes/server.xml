@@ -19,8 +19,8 @@
        dynamic：true|false 是否动态管理
        多注册中心
        -->
-       <dubbo:registry id="localregister" address="zookeeper://localhost:2181"/>
-       <dubbo:registry id="remoteregister" address="zookeeper://localhost:2181"/>
+       <dubbo:registry id="localregister" address="multicast://224.0.0.0:1234"/>
+       <dubbo:registry id="remoteregister" address="multicast://224.0.0.0:1234"/>
 
        <!--协议配置	用于配置提供服务的协议信息，协议由提供方指定，消费方被动接受 -->
        <dubbo:protocol name="hessian" id="hp" port="20881" keepalive="false" serialization="kyro"/>
@@ -57,4 +57,7 @@
        <dubbo:service interface="org.dubbo.common.TestNotifyService" ref="testNotifyService"/>
 
        <dubbo:service interface="org.dubbo.common.StubDubboService" ref="stubDubboService" timeout="5" mock="org.dubbo.common.mock.StubDubboServiceMock"/>
+
+       <dubbo:service group="mf" interface="org.dubbo.common.merge.MergeService" ref="mergef"/>
+       <dubbo:service group="ms" interface="org.dubbo.common.merge.MergeService" ref="merges"/>
 </beans>

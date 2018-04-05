@@ -8,6 +8,7 @@ import org.dubbo.common.TestNotifyService;
 import org.dubbo.common.UpgradeDubboService;
 import org.dubbo.common.callback.CallbackListener;
 import org.dubbo.common.callback.CallbackService;
+import org.dubbo.common.merge.MergeService;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.FileOutputStream;
@@ -137,6 +138,17 @@ public class TestDubboConsumer {
     }
 
 
+    /**
+     * merge
+     */
+    public static void consumeWithMerge(){
+        MergeService mergeService = (MergeService) context.getBean("mergeService");
+        System.out.println(mergeService.helloString("merge.."));
+        System.out.println(mergeService.helloList("merge.."));
+    }
+
+
+
     public static void main(String[] args) throws ExecutionException, InterruptedException, IOException {
 //        TestDubboConsumer.download("F:\\intel.zip", "F:\\afdfasdfa.rar");
 //        TestDubboConsumer.consume();
@@ -144,6 +156,7 @@ public class TestDubboConsumer {
 //        consumeWithCallBack();
 //        consumeWithNotify();
 //        consumeWithStub();
-        consumeWithMock();
+//        consumeWithMock();
+        consumeWithMerge();
     }
 }
