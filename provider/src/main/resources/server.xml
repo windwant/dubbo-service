@@ -38,8 +38,9 @@
        threadpool: 线程池 fiexd, cached, limited
        dispather: 请求分发 all direct message execution
        token: 令牌验证 通过令牌验证在注册中心控制权限，以决定要不要下发令牌给消费者，可以防止消费者绕过注册中心访问提供者
+       delay: 延迟注册服务毫秒数  -1 延迟到spring容器初始化完成
        -->
-       <dubbo:provider token="true" protocol="dubbo" dispather="all" retries="3" threadpool="fixed" threads="10" filter="myLogFilter" cluster="failfast" loadbalance="roundrobin"/>
+       <dubbo:provider token="true" delay="-1" protocol="dubbo" dispather="all" retries="3" threadpool="fixed" threads="10" filter="myLogFilter" cluster="failfast" loadbalance="roundrobin"/>
 
        <!--服务配置	用于暴露一个服务，定义服务的元信息，一个服务可以用多个协议暴露，一个服务也可以注册到多个注册中心-->
        <dubbo:service protocol="dp" group="dev" registry="localregister" interface="org.dubbo.common.HelloDubboService" ref="helloSvr" version="1.0.0"/>
@@ -59,8 +60,11 @@
               </dubbo:method>
        </dubbo:service>
 
-       <!--事件通知-->
-       <dubbo:service interface="org.dubbo.common.TestNotifyService" ref="testNotifyService"/>
+       <!--事件通知
+        connections: 最大连接数 10
+        executes: 最大并发执行数100
+       -->
+       <dubbo:service interface="org.dubbo.common.TestNotifyService" ref="testNotifyService" connections="10" executes="100"/>
 
        <dubbo:service interface="org.dubbo.common.StubDubboService" ref="stubDubboService">
               <dubbo:method name="testMock" timeout="5" mock="org.dubbo.common.mock.StubDubboServiceMock"/>

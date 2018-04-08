@@ -42,7 +42,7 @@
               <dubbo:method name="hello" async="true" onreturn = "dnotify.onreturn" onthrow="dnotify.onthrow" />
        </dubbo:reference>
 
-       <dubbo:reference interface="org.dubbo.common.StubDubboService" id="stubDubboService" stub="org.dubbo.consumer.stub.StubDubboServiceStub"/>
+       <dubbo:reference interface="org.dubbo.common.StubDubboService" id="stubDubboService" stub="org.dubbo.consumer.stub.StubDubboServiceStub" listener="myinvokerlistener"/>
 
        <dubbo:reference id="mergeService" group="*" interface="org.dubbo.common.merge.MergeService">
               <!--原生merger-->
