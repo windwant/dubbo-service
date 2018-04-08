@@ -1,5 +1,6 @@
 .idea/
 *.iml
-service/target/
-needer/target/
+provider/target/
+consumer/target/
+common/target/
 web/target/
