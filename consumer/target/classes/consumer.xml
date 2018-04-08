@@ -13,9 +13,11 @@
        <!--消费方配置	当 ReferenceConfig 某属性没有配置时，采用此缺省值，可选 check: 启动时检查  -->
        <dubbo:consumer check="false" />
 
-       <!--多中心-->
-       <dubbo:registry id="local" address="multicast://224.0.0.0:1234"/>
-       <dubbo:registry id="remote" address="multicast://224.0.0.0:1234"/>
+       <!--多中心
+        cache: 缓存文件配置
+       -->
+       <dubbo:registry id="local" address="multicast://224.0.0.0:1234" file="cache/consumer.cache"/>
+       <dubbo:registry id="remote" address="redis://127.0.0.1:6379"/>
 
        <bean id="dnotify" class="org.dubbo.consumer.notify.DownloadNotifyImpl"/>
 

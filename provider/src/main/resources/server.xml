@@ -22,9 +22,10 @@
        subscribe： true|false 是否订阅
        dynamic：true|false 是否动态管理
        多注册中心
+       group: 注册根节点
        -->
        <dubbo:registry id="localregister" address="multicast://224.0.0.0:1234"/>
-       <dubbo:registry id="remoteregister" address="multicast://224.0.0.0:1234"/>
+       <dubbo:registry id="remoteregister" group="dubbo-demo" address="redis://127.0.0.1:6379" file="cache/provider.cache"/>
 
        <!--协议配置	用于配置提供服务的协议信息，协议由提供方指定，消费方被动接受 -->
        <dubbo:protocol name="hessian" id="hp" port="20881" keepalive="false" serialization="kyro"/>
