@@ -10,7 +10,11 @@
 
        <context:component-scan base-package="org.dubbo.provider"/>
        
-       <!--应用配置	用于配置当前应用信息，不管该应用是提供者还是消费者-->
+       <!--应用配置	用于配置当前应用信息，不管该应用是提供者还是消费者
+        logger：配置日志输出策略，2.2.1 开始，dubbo 开始内置 log4j、slf4j、jcl、jdk 这些日志框架的适配
+        -Ddubbo.application.logger=log4j
+        dubbo.application.logger=log4j
+       -->
        <dubbo:application name="dubboapi" logger="slf4j"/>
 
        <!--注册中心配置	用于配置连接注册中心相关信息
@@ -24,7 +28,8 @@
 
        <!--协议配置	用于配置提供服务的协议信息，协议由提供方指定，消费方被动接受 -->
        <dubbo:protocol name="hessian" id="hp" port="20881" keepalive="false" serialization="kyro"/>
-       <dubbo:protocol name="dubbo" id="dp" port="20880"/>
+       <!--accesslog：访问日志记录每一次访问信息-->
+       <dubbo:protocol name="dubbo" id="dp" port="20880" accesslog="true"/>
 
        <!--提供方配置	当 ProtocolConfig 和 ServiceConfig 某属性没有配置时，采用此缺省值，可选
        retries: 失败重试，
@@ -32,8 +37,9 @@
        loadBalance: 负载均衡策略 random roundrobin leastactive consisthash
        threadpool: 线程池 fiexd, cached, limited
        dispather: 请求分发 all direct message execution
+       token: 令牌验证 通过令牌验证在注册中心控制权限，以决定要不要下发令牌给消费者，可以防止消费者绕过注册中心访问提供者
        -->
-       <dubbo:provider protocol="dubbo" dispather="all" retries="3" threadpool="fixed" threads="10" filter="myLogFilter" cluster="failfast" loadbalance="roundrobin"/>
+       <dubbo:provider token="true" protocol="dubbo" dispather="all" retries="3" threadpool="fixed" threads="10" filter="myLogFilter" cluster="failfast" loadbalance="roundrobin"/>
 
        <!--服务配置	用于暴露一个服务，定义服务的元信息，一个服务可以用多个协议暴露，一个服务也可以注册到多个注册中心-->
        <dubbo:service protocol="dp" group="dev" registry="localregister" interface="org.dubbo.common.HelloDubboService" ref="helloSvr" version="1.0.0"/>
