@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.dubbo</groupId>
-  <artifactId>dubbo-service-demo</artifactId>
+  <artifactId>dubbo-service</artifactId>
   <version>1.0-SNAPSHOT</version>
   <modules>
     <module>web</module>
@@ -13,7 +13,7 @@
   </modules>
   <packaging>pom</packaging>
 
-  <name>dubbo-service-demo</name>
+  <name>dubbo-service</name>
   <url>http://maven.apache.org</url>
 
   <properties>

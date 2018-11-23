@@ -1,4 +1,4 @@
-# dubbo-service-demo
+# dubbo-service
 
 dubbo spring zookeeper
 
